@@ -8,12 +8,18 @@ services:
       - 8080:8080
     environment:
       - NEXT_PUBLIC_API=http://localhost:3000
+    volumes:
+      - ./web:/usr/src/app
   api:
     depends_on:
       - database
     build: api
     ports:
       - 3000:3000
+    environment:
+      - DATABASE_URL=mongodb://database
+    volumes:
+      - ./api:/usr/src/app
   database:
     image: mongo:5.0
     ports:
