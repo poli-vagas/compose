@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  web:
+    depends_on:
+      - api
+    build: web
+    ports:
+      - 8080:8080
+    environment:
+      - NEXT_PUBLIC_API=http://localhost:3000
+  api:
+    depends_on:
+      - database
+    build: api
+    ports:
+      - 3000:3000
+  database:
+    image: mongo:5.0
+    ports:
+      - 27017:27017
+    volumes:
+      - ./database:/data/db
